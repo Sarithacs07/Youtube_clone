@@ -1,7 +1,10 @@
 node {
     // Specify the Node.js tool
     def nodeTool = tool name: 'nodejs', type: 'NodeJSInstallation'
-
+    environment{
+       DOCKER_USERNAME=saritha752
+       DOCKER_PASSWORD=Hani@1234 
+    }
     try {
         stage('Git checkout') {
             echo 'Hello'
@@ -19,6 +22,19 @@ node {
                 sh 'npm run build'
             }
         }
+        stage('Build Docker Image') {
+          steps {
+           sh 'docker build -t my-react-app .'
+           }
+        }
+        stage('Push Docker Image') {
+         steps {
+         withCredentials([usernamePassword(credentialsId: '70052536-5c15-4d30-ab46-bb4f5954ed5b', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+         sh 'docker push my-react-app'
+        }
+    }
+}
     } catch (Exception e) {
         echo "An error occurred: ${e.message}"
         currentBuild.result = 'FAILURE'
