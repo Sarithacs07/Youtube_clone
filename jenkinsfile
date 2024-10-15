@@ -2,8 +2,8 @@ node {
     // Specify the Node.js tool
     def nodeTool = tool name: 'nodejs', type: 'NodeJSInstallation'
     environment{
-       DOCKER_USERNAME=saritha752
-       DOCKER_PASSWORD=Hani@1234 
+       DOCKER_USERNAME="saritha752"
+       DOCKER_PASSWORD="Hani@1234" 
     }
     try {
         stage('Git checkout') {
