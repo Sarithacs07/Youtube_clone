@@ -10,13 +10,13 @@ pipeline{
     echo("Hello")
    }
    }
-   stage("Node Build"){
+   stage("Node install"){
    steps {
     sh "npm install"
    }
    }
 
-   stage("Node Build"){
+   stage("Node build"){
    steps {
     sh "npm run build"
    }
