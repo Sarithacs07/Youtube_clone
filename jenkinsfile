@@ -1,0 +1,30 @@
+node {
+    // Specify the Node.js tool
+    def nodeTool = tool name: 'nodejs', type: 'NodeJSInstallation'
+
+    try {
+        stage('Git checkout') {
+            echo 'Hello'
+        }
+
+        stage('Node install') {
+            // Use the Node.js tool for the npm commands
+            withEnv(["PATH+NODE=${nodeTool}/bin"]) {
+                sh 'npm install'
+            }
+        }
+
+        stage('Node build') {
+            withEnv(["PATH+NODE=${nodeTool}/bin"]) {
+                sh 'npm run build'
+            }
+        }
+    } catch (Exception e) {
+        echo "An error occurred: ${e.message}"
+        currentBuild.result = 'FAILURE'
+        // Optionally, you can add cleanup or additional error handling here
+    } finally {
+        // This block will always run, regardless of success or failure
+        echo 'Cleaning up...'
+    }
+}
