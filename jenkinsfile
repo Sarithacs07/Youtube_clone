@@ -9,10 +9,11 @@ pipeline{
    steps {
     echo("Hello")
    }
-
+   }
    stage("Node Build"){
    steps {
     sh "npm install"
+   }
    }
 
    stage("Node Build"){
@@ -22,5 +23,4 @@ pipeline{
  }
 }
 }
-
-
+}
