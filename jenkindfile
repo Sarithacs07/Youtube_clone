@@ -1,0 +1,26 @@
+pipeline{
+  agent any
+
+  tools {
+  nodejs 'nodejs'
+  }
+   stages {
+   stage("Git checkout"){
+   steps {
+    echo("Hello")
+   }
+   }
+   stage("Node install"){
+   steps {
+    sh "npm install"
+   }
+   }
+
+   stage("Node build"){
+   steps {
+    sh "npm run build"
+   }
+ }
+}
+}
+
